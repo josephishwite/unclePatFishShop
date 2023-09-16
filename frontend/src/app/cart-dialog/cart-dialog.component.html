@@ -1,1 +1,30 @@
-<p>cart-dialog works!</p>
+<h2 mat-dialog-title>Cart</h2>
+<mat-dialog-content>
+    <div *ngIf="cart">
+        <div *ngIf="isEmpty()">
+            Please add items to cart
+        </div>
+        <table *ngIf="!isEmpty()">
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Count</th>
+            </tr>
+            <tr *ngFor="let key of Object.keys(curCart)">
+                <ng-container *ngIf="getFish(key)">
+                    <td><img src={{getFish(key)?.imgSrc}} class="img-thumbnail" alt="..." style="width:70px;height:70px;"></td>
+                    <td>{{getFish(key)?.title}}</td>
+                    <td>{{getFish(key)?.count}}</td>
+                </ng-container>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="checkout">
+        THIS IS CHECKOUT PAGE
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button class="btn btn-outline-danger m-2" mat-button mat-dialog-close>Close</button>
+    <button class="btn btn-outline-success m-2" (click)="checkOutClick()">Checkout</button>
+</mat-dialog-actions>

@@ -9,13 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from "@angular/material/dialog";
 import { CartDialogComponent } from './cart-dialog/cart-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BrowseComponent,
     AdminHomeComponent,
-    CartDialogComponent
+    CartDialogComponent,
+    EditDialogComponent
   ],
   imports: [
     BrowserModule,
