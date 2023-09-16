@@ -1,1 +1,33 @@
-<p>admin-home works!</p>
+<div> 
+    <h1>Manage Fishies <button class="btn btn-outline-success my-2 my-sm-0" >Add more fishies</button></h1>
+    <table class="table table-striped">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Details</th>
+        <th scope="col">Count</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let fish of curFishies">
+        <td>{{ fish.id }}</td>
+        <td>{{ fish.title }}</td>  
+        <td>{{ fish.details }}</td>
+        <td>{{ fish.count }}</td>
+        <td>
+            <button class="btn btn-outline-warning my-2 my-sm-0" (click)="openEditDialog(fish.id, fish.title, fish.details, fish.count)">
+                Modify Fishies
+            </button>
+        </td>
+        <td>
+            <button class="btn btn-outline-danger my-2 my-sm-0" (click)="confirmDelete(fish.id, fish.title)">
+            <i class="fas fa-trash"></i> Delete
+            </button>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+</div>
