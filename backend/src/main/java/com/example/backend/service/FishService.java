@@ -1,7 +1,9 @@
 package com.example.backend.service;
 
 import java.util.ArrayList;  
-import java.util.List;  
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,18 @@ public class FishService {
     }
 
     public void saveOrUpdate(Fish fish) {
-        fishRepository.save(fish);
+        Optional<Fish> curFish = fishRepository.findById(fish.getId());
+        if (curFish.isPresent()){
+            fishRepository.save(fish);
+        }
+        else{
+            Fish newFish = new Fish();
+            newFish.setTitle(fish.getTitle());
+            newFish.setDetails(fish.getDetails());
+            newFish.setImgsrc(fish.getImgsrc());
+            newFish.setCount(fish.getCount());
+            fishRepository.save(newFish);
+        }
     }
 
     // deleting a specific record

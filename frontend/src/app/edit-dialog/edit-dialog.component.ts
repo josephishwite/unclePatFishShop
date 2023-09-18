@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { FishService } from '../fish.service';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -12,12 +13,14 @@ export class EditDialogComponent {
 
   constructor(
    @Inject(MAT_DIALOG_DATA) public data: any,
-   private formBuilder: FormBuilder
+   private formBuilder: FormBuilder,
+   private fishService: FishService
   ) {
     this.editFormGroup = this.formBuilder.group({
       id: data.id,
       title: data.title,
-      description: data.description,
+      details: data.details,
+      imgsrc: data.imgsrc,
       count: data.count
     })
   }
@@ -29,7 +32,11 @@ export class EditDialogComponent {
 
   editConfirm(){
     console.log(this.editFormGroup.value)
-    alert("Fishies Modified successfully! :)")
-    // Then we will need to refresh the state. 
+    const editedFish = this.editFormGroup.value
+    this.fishService.updateFish(editedFish).subscribe(
+        (value) => alert("Fishies Modified successfully! :)"),
+        (error) => console.error(`Error: ${error}`),
+        () => console.log('Observable completed')
+    )
   }
 }

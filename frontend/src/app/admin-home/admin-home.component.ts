@@ -3,6 +3,9 @@ import { StateService } from '../state.service';
 import { Fish } from '../fish';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
+import { FishService } from '../fish.service';
+import { Location } from '@angular/common';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-admin-home',
@@ -13,30 +16,33 @@ export class AdminHomeComponent {
   fishies$ = this.stateService.fishes$;
   curFishies = new Array<Fish>();
 
-   constructor(private stateService: StateService, public dialog: MatDialog){
+   constructor(private stateService: StateService, public dialog: MatDialog, private fishService: FishService, private location: Location){
     this.fishies$.subscribe(data => {
       for(let fish in data){
         this.curFishies.push(data[fish]);
       }
-      console.log(this.curFishies)
     })
   }
 
-  openEditDialog(id: number, title: string, description: string, count:number){
-    console.log(id)
+  openEditDialog(id: number, title: string, details: string, imgsrc: string, count:number){
     const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '400px',
       data:{
         id: id,
         title: title,
-        description: description, 
-        count: count
+        details: details, 
+        count: count,
+        imgsrc: imgsrc
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      // Handle modal close actions if needed
-    });
+    dialogRef.afterClosed().pipe(
+        switchMap(()=> this.fishService.getFishies())
+      ).subscribe(data =>{
+        console.log(data)
+        this.curFishies = data
+        this.stateService.getFishies()
+    })
   }
 
   confirmDelete(id:number, title: string){
@@ -44,7 +50,13 @@ export class AdminHomeComponent {
      + 'item id: ' + id + '\nItem Title: ' + title)
 
      if(result){
-      window.alert('Item deleted!')
+      this.fishService.deleteFish(id).pipe(
+        switchMap(()=> this.fishService.getFishies())
+      ).subscribe(data =>{
+        window.alert('Item deleted!')
+        this.curFishies = data
+        this.stateService.getFishies()
+      })
      }else{
       console.log('Delete Canceled')
      }

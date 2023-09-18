@@ -1,5 +1,5 @@
 <div> 
-    <h1>Manage Fishies <button class="btn btn-outline-success my-2 my-sm-0" >Add more fishies</button></h1>
+    <h1>Manage Fishies <button class="btn btn-outline-success my-2 my-sm-0" (click)="openEditDialog(-1, '', '', '', 0)">Add more fishies</button></h1>
     <table class="table table-striped">
     <thead>
         <tr>
@@ -18,7 +18,7 @@
         <td>{{ fish.details }}</td>
         <td>{{ fish.count }}</td>
         <td>
-            <button class="btn btn-outline-warning my-2 my-sm-0" (click)="openEditDialog(fish.id, fish.title, fish.details, fish.count)">
+            <button class="btn btn-outline-warning my-2 my-sm-0" (click)="openEditDialog(fish.id, fish.title, fish.details,fish.imgsrc, fish.count)">
                 Modify Fishies
             </button>
         </td>

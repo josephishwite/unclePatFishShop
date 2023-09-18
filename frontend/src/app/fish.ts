@@ -2,6 +2,6 @@ export interface Fish{
     id: number; 
     title: string; 
     details: string; 
-    imgSrc: string; 
+    imgsrc: string; 
     count: number; 
 }

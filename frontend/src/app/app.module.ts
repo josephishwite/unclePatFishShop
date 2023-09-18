@@ -10,6 +10,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { CartDialogComponent } from './cart-dialog/cart-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
