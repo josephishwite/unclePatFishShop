@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend # The path to the directory containing the backend Dockerfile
+    ports: 
+      - "8080:8080" # Map container port 8080 to host port 8080
+
+  frontend:
+    build:
+      context: ./frontend # The path to the directory containing the frontend Dockerfile
+    ports:
+      - "4200:80" # Map container port 4200 to host port 4200
+    depends_on:
+      - backend
